@@ -62,7 +62,7 @@ namespace IliaEShopping.Application.Controllers
         {
             try
             {
-                var result = await _orderService.UpdateStatusAsync(id, request.OrderStatusId);
+                var result = await _orderService.UpdateStatusAsync(id, (short)request.OrderStatus);
                 return Ok(result);
             }
             catch (Infrastructure.CrossCutting.Exceptions.ValidationException ex)

@@ -4,13 +4,13 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IliaEShopping.Infrastructure.Interfaces
+namespace IliaEShopping.Service.Interfaces
 {
-    public interface ICustomerRepository : IRepository<Customer>
+    public interface IOrderStatusService : IBaseService<OrderStatus>
     {
         #region "  Methods  "
 
-        Task<Customer> GetWithOdersAsync(int id);
+        Task EnsureCreated();
 
         #endregion
     }

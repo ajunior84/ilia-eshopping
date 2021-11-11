@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using FluentValidation;
 using IliaEShopping.Domain.Entities;
+using IliaEShopping.Domain.ObjectValues;
 using IliaEShopping.Infrastructure.CrossCutting.Exceptions;
 using IliaEShopping.Infrastructure.Interfaces;
 using IliaEShopping.Service.Interfaces;
@@ -53,11 +54,12 @@ namespace IliaEShopping.Service.Services
 
             Sanitize(ref order);
 
+            order.OrderStatusId = (short)OrderStatusType.Created;
             order.CreatedAt = DateTime.Now;
             order.OrderStatusHistory.Add(new OrderStatusHistory
             {
                 CreatedAt = DateTime.Now,
-                OrderStatusId = 1
+                OrderStatusId = (short)OrderStatusType.Created
             });
 
             // Validate
@@ -65,7 +67,7 @@ namespace IliaEShopping.Service.Services
 
             UnitOfWork.Orders.Add(order);
             await UnitOfWork.CommitAsync();
-            return order;
+            return await GetAsync(order.Id);
         }
 
         public override async Task<int> DeleteAsync(int id)

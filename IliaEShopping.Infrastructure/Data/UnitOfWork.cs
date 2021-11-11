@@ -23,10 +23,12 @@ namespace IliaEShopping.Infrastructure.Data
         public UnitOfWork(
             EShoppingDataContext context,
             ICustomerRepository customerRepository,
+            IOrderStatusRepository orderStatusRepository,
             IOrderRepository orderRepository)
         {
             _context = context;
             Customers = customerRepository;
+            OrderStatuses = orderStatusRepository;
             Orders = orderRepository;
         }
 
@@ -43,6 +45,11 @@ namespace IliaEShopping.Infrastructure.Data
         /// Order repository
         /// </summary>
         public IOrderRepository Orders { get; private set; }
+
+        /// <summary>
+        /// Order Status repository
+        /// </summary>
+        public IOrderStatusRepository OrderStatuses { get; private set; }
 
         #endregion
 

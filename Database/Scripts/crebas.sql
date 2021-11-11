@@ -1,8 +1,7 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     11/11/2021 16:59:27                          */
+/* Created on:     11/11/2021 20:02:25                          */
 /*==============================================================*/
-
 
 /*==============================================================*/
 /* Table: Customer                                              */
@@ -43,7 +42,7 @@ create table OrderStatusHistory
 /*==============================================================*/
 create table Orders
 (
-   Id                   int not null,
+   Id                   int not null auto_increment,
    Price                double not null,
    CreatedAt            datetime not null,
    CustomerId           int not null,

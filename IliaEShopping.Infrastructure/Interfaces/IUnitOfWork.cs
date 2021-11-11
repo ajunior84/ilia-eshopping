@@ -22,6 +22,11 @@ namespace IliaEShopping.Infrastructure.Interfaces
         /// </summary>
         IOrderRepository Orders { get; }
 
+        /// <summary>
+        /// Order Status repository
+        /// </summary>
+        IOrderStatusRepository OrderStatuses { get; }
+
         #endregion
 
         #region "  Methods  "

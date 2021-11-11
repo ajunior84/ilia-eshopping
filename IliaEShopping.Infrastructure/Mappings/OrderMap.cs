@@ -22,8 +22,7 @@ namespace IliaEShopping.Infrastructure.Mappings
                 .HasName("FK_ORDERSTATUS_ORDER");
 
             entity.Property(e => e.Id)
-                .HasColumnType("int(11)")
-                .ValueGeneratedNever();
+                .HasColumnType("int(11)");
 
             entity.Property(e => e.CreatedAt).HasColumnType("datetime");
 

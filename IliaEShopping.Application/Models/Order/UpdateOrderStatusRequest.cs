@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using IliaEShopping.Domain.ObjectValues;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -16,6 +17,6 @@ namespace IliaEShopping.Application.Models.Order
         /// New status identifier
         /// </summary>
         [Required]
-        public short OrderStatusId { get; set; }
+        public OrderStatusType OrderStatus { get; set; }
     }
 }

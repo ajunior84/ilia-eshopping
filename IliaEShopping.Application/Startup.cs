@@ -99,11 +99,14 @@ namespace IliaEShopping.Application
 
             services.AddTransient<ICustomerRepository, CustomerRepository>();
             services.AddTransient<IOrderRepository, OrderRepository>();
+            services.AddTransient<IOrderStatusRepository, OrderStatusRepository>();
             services.AddTransient<ICustomerService, CustomerService>();
+            services.AddTransient<IOrderService, OrderService>();
+            services.AddTransient<IOrderStatusService, OrderStatusService>();
             services.AddTransient<IUnitOfWork, UnitOfWork>();
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IOrderStatusService orderStatusService)
         {
             if (env.IsDevelopment())
             {
@@ -127,6 +130,9 @@ namespace IliaEShopping.Application
             {
                 endpoints.MapDefaultControllerRoute();
             });
+
+            // Create order statuses
+            orderStatusService.EnsureCreated().Wait();
         }
     }
 }
