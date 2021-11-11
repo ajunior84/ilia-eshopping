@@ -17,6 +17,8 @@ using Microsoft.EntityFrameworkCore;
 using IliaEShopping.Infrastructure.Data;
 using IliaEShopping.Infrastructure.Interfaces;
 using IliaEShopping.Infrastructure.Repositories;
+using IliaEShopping.Service.Interfaces;
+using IliaEShopping.Service.Services;
 
 namespace IliaEShopping.Application
 {
@@ -44,13 +46,14 @@ namespace IliaEShopping.Application
                     opts.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
                 });
 
-            services.AddDbContext<EShoppingDataContext>(options => options.UseMySql("", myOpts =>
+            services.AddDbContext<EShoppingDataContext>(options => options.UseMySql(Configuration.GetConnectionString("IliaEShopping"), myOpts =>
             {
                 myOpts.EnableRetryOnFailure();
             }));
 
             services.AddTransient<ICustomerRepository, CustomerRepository>();
             services.AddTransient<IUnitOfWork, UnitOfWork>();
+            services.AddTransient<ICustomerService, CustomerService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

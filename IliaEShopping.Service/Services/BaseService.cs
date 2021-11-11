@@ -1,23 +1,33 @@
 ﻿using AutoMapper;
-using FluentValidation;
 using IliaEShopping.Domain.Entities;
 using IliaEShopping.Infrastructure.Interfaces;
 using IliaEShopping.Service.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace IliaEShopping.Service.Services
 {
-    public abstract class BaseService
+    public abstract class BaseService<TEntity> : IBaseService<TEntity> where TEntity : BaseEntity
     {
-        private readonly IUnitOfWork _uow;
-        private readonly IMapper _mapper;
+        protected readonly IUnitOfWork UnitOfWork;
+        protected readonly IMapper Mapper;
 
         public BaseService(IUnitOfWork uow, IMapper mapper)
         {
-            _uow = uow;
-            _mapper = mapper;
+            this.UnitOfWork = uow;
+            Mapper = mapper;
         }
+
+        public abstract Task<TEntity> AddAsync<TInputModel>(TInputModel inputModel) where TInputModel : class;
+
+        public abstract Task DeleteAsync(int id);
+
+        public abstract Task<TEntity> GetAsync(int id);
+
+        public abstract Task<IEnumerable<TEntity>> ListAsync();
+
+        public abstract Task<TEntity> UpdateAsync<TInputModel>(TInputModel inputModel) where TInputModel : class;
     }
 }

@@ -3,25 +3,30 @@ using IliaEShopping.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace IliaEShopping.Service.Interfaces
 {
+    /// <summary>
+    /// Base service interface
+    /// </summary>
+    /// <typeparam name="TEntity">Entity Type</typeparam>
     public interface IBaseService<TEntity> where TEntity : BaseEntity
     {
-        TOutputModel Add<TInputModel, TOutputModel, TValidator>(TInputModel inputModel)
-            where TValidator : AbstractValidator<TEntity>
-            where TInputModel : class
-            where TOutputModel : class;
+        #region "  Methods  "
 
-        void Delete(int id);
+        Task<TEntity> AddAsync<TInputModel>(TInputModel inputModel)
+            where TInputModel : class;
 
-        IEnumerable<TOutputModel> Get<TOutputModel>() where TOutputModel : class;
+        Task DeleteAsync(int id);
 
-        TOutputModel GetById<TOutputModel>(int id) where TOutputModel : class;
+        Task<IEnumerable<TEntity>> ListAsync();
 
-        TOutputModel Update<TInputModel, TOutputModel, TValidator>(TInputModel inputModel)
-            where TValidator : AbstractValidator<TEntity>
-            where TInputModel : class
-            where TOutputModel : class;
+        Task<TEntity> GetAsync(int id);
+
+        Task<TEntity> UpdateAsync<TInputModel>(TInputModel inputModel)
+            where TInputModel : class;
+
+        #endregion
     }
 }
