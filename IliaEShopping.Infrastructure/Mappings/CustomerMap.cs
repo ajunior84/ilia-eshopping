@@ -6,8 +6,13 @@ using System.Text;
 
 namespace IliaEShopping.Infrastructure.Mappings
 {
+    /// <summary>
+    /// Customer fields database map
+    /// </summary>
     public class CustomerMap : IEntityTypeConfiguration<Domain.Entities.Customer>
     {
+        #region "  Public Methods "
+
         public void Configure(EntityTypeBuilder<Domain.Entities.Customer> builder)
         {
             builder.ToTable("Customer");
@@ -39,5 +44,7 @@ namespace IliaEShopping.Infrastructure.Mappings
                 .HasColumnName("CreatedAt")
                 .HasColumnType("datetime");
         }
+
+        #endregion
     }
 }

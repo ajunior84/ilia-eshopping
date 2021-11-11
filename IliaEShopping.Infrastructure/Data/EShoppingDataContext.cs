@@ -5,6 +5,9 @@ using System.Text;
 
 namespace IliaEShopping.Infrastructure.Data
 {
+    /// <summary>
+    /// App Data Context
+    /// </summary>
     public class EShoppingDataContext : DbContext
     {
     }

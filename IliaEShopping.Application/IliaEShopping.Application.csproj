@@ -12,7 +12,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
+    <ProjectReference Include="..\IliaEShopping.Domain\IliaEShopping.Domain.csproj" />
+    <ProjectReference Include="..\IliaEShopping.Service\IliaEShopping.Service.csproj" />
   </ItemGroup>
 
 
