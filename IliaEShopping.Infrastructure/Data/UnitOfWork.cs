@@ -1,4 +1,5 @@
 ﻿using IliaEShopping.Infrastructure.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -13,14 +14,14 @@ namespace IliaEShopping.Infrastructure.Data
     {
         #region "  Variables  "
 
-        private readonly EShoppingDataContext _context;
+        private readonly DbContext _context;
 
         #endregion
 
         #region "  Constructors  "
 
         public UnitOfWork(
-            EShoppingDataContext context,
+            DbContext context,
             ICustomerRepository customerRepository,
             IOrderRepository orderRepository)
         {

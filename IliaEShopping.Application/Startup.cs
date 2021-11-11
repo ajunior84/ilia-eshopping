@@ -21,6 +21,7 @@ using IliaEShopping.Service.Interfaces;
 using IliaEShopping.Service.Services;
 using System.IO;
 using Microsoft.OpenApi.Models;
+using AutoMapper;
 
 namespace IliaEShopping.Application
 {
@@ -80,14 +81,23 @@ namespace IliaEShopping.Application
                     opts.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
                 });
 
+            var config = new AutoMapper.MapperConfiguration(cfg =>
+            {
+
+            });
+
+            IMapper mapper = config.CreateMapper();
+            services.AddSingleton(mapper);
+
             services.AddDbContext<DbContext, EShoppingDataContext>(options => options.UseMySql(Configuration.GetConnectionString("IliaEShopping"), myOpts =>
             {
                 myOpts.EnableRetryOnFailure();
             }), ServiceLifetime.Scoped);
 
             services.AddTransient<ICustomerRepository, CustomerRepository>();
-            services.AddTransient<IUnitOfWork, UnitOfWork>();
+            services.AddTransient<IOrderRepository, OrderRepository>();
             services.AddTransient<ICustomerService, CustomerService>();
+            services.AddTransient<IUnitOfWork, UnitOfWork>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
