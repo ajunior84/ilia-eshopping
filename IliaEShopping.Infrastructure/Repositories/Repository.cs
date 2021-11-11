@@ -1,4 +1,5 @@
 ﻿using IliaEShopping.Domain.Entities;
+using IliaEShopping.Infrastructure.Data;
 using IliaEShopping.Infrastructure.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -16,14 +17,14 @@ namespace IliaEShopping.Infrastructure
     {
         #region "  Variables  "
 
-        protected readonly DbContext Context;
+        protected readonly EShoppingDataContext Context;
         private readonly DbSet<TEntity> _dbSet;
 
         #endregion
 
         #region "  Constructors  "
 
-        public Repository(DbContext context)
+        public Repository(EShoppingDataContext context)
         {
             Context = context;
 

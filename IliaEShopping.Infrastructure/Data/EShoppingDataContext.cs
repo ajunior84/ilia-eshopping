@@ -12,15 +12,31 @@ namespace IliaEShopping.Infrastructure.Data
     /// </summary>
     public class EShoppingDataContext : DbContext
     {
+        #region "  Constructors  "
+
+        public EShoppingDataContext() { }
+
         public EShoppingDataContext(DbContextOptions<EShoppingDataContext> options) : base(options) { }
 
-        public DbSet<Customer> Customers { get; set; }
+        #endregion
+
+        #region "  DB Sets  "
+
+        public virtual DbSet<Customer> Customer { get; set; }
+        public virtual DbSet<OrderStatus> OrderStatus { get; set; }
+        public virtual DbSet<OrderStatusHistory> OrderStatusHistory { get; set; }
+        public virtual DbSet<Order> Order { get; set; }
+
+        #endregion
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<Customer>(new CustomerMap().Configure);
+            modelBuilder.Entity<OrderStatus>(new OrderStatusMap().Configure);
+            modelBuilder.Entity<OrderStatusHistory>(new OrderStatusHistoryMap().Configure);
+            modelBuilder.Entity<Order>(new OrderMap().Configure);
         }
     }
 }

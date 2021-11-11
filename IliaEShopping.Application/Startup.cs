@@ -81,7 +81,7 @@ namespace IliaEShopping.Application
                     opts.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
                 });
 
-            var config = new AutoMapper.MapperConfiguration(cfg =>
+            var config = new MapperConfiguration(cfg =>
             {
 
             });
@@ -89,7 +89,7 @@ namespace IliaEShopping.Application
             IMapper mapper = config.CreateMapper();
             services.AddSingleton(mapper);
 
-            services.AddDbContext<DbContext, EShoppingDataContext>(options => options.UseMySql(Configuration.GetConnectionString("IliaEShopping"), myOpts =>
+            services.AddDbContext<EShoppingDataContext>(options => options.UseMySql(Configuration.GetConnectionString("IliaEShopping"), myOpts =>
             {
                 myOpts.EnableRetryOnFailure();
             }), ServiceLifetime.Scoped);

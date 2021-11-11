@@ -24,36 +24,45 @@ namespace IliaEShopping.Service.Services
 
         #region "  Base Service Implementation  "
 
-        public override Task<Customer> AddAsync<TInputModel>(TInputModel inputModel)
+        public override async Task<Customer> AddAsync<TInputModel>(TInputModel inputModel)
         {
-            throw new NotImplementedException();
+            var customer = Mapper.Map<Customer>(inputModel);
+            UnitOfWork.Customers.Add(customer);
+            await UnitOfWork.CommitAsync();
+            return customer;
         }
 
-        public override Task DeleteAsync(int id)
+        public override async Task<int> DeleteAsync(int id)
         {
-            throw new NotImplementedException();
+            var customer = await GetAsync(id);
+            UnitOfWork.Customers.Delete(customer);
+            var count = await UnitOfWork.CommitAsync();
+            return count;
         }
 
         public override Task<Customer> GetAsync(int id)
         {
-            throw new NotImplementedException();
+            return UnitOfWork.Customers.GetAsync(id);
         }
 
-        public override Task<IEnumerable<Customer>> ListAsync()
+        public override Task<List<Customer>> ListAsync()
         {
-            throw new NotImplementedException();
+            return UnitOfWork.Customers.ListAsync();
         }
 
-        public override Task<Customer> UpdateAsync<TInputModel>(TInputModel inputModel)
+        public override async Task<Customer> UpdateAsync<TInputModel>(TInputModel inputModel)
         {
-            throw new NotImplementedException();
+            var customer = Mapper.Map<Customer>(inputModel);
+            UnitOfWork.Customers.Update(customer);
+            await UnitOfWork.CommitAsync();
+            return customer;
         }
 
         #endregion
 
         #region "  ICustomerService Implementation  "
 
-        public Task<Customer> GetWithOdersAsync<Customer>(int id)
+        public Task<Customer> GetWithOdersAsync(int id)
         {
             throw new NotImplementedException();
         }

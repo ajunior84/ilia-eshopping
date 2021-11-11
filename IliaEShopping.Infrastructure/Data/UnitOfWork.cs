@@ -14,14 +14,14 @@ namespace IliaEShopping.Infrastructure.Data
     {
         #region "  Variables  "
 
-        private readonly DbContext _context;
+        private readonly EShoppingDataContext _context;
 
         #endregion
 
         #region "  Constructors  "
 
         public UnitOfWork(
-            DbContext context,
+            EShoppingDataContext context,
             ICustomerRepository customerRepository,
             IOrderRepository orderRepository)
         {

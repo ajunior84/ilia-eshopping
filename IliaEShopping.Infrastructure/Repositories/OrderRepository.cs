@@ -1,4 +1,5 @@
 ﻿using IliaEShopping.Domain.Entities;
+using IliaEShopping.Infrastructure.Data;
 using IliaEShopping.Infrastructure.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -11,7 +12,7 @@ namespace IliaEShopping.Infrastructure.Repositories
     {
         #region "  Constructors  "
 
-        public OrderRepository(DbContext context) : base(context)
+        public OrderRepository(EShoppingDataContext context) : base(context)
         {
 
         }

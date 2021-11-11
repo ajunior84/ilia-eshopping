@@ -8,6 +8,10 @@ namespace IliaEShopping.Service.Interfaces
 {
     public interface ICustomerService : IBaseService<Customer>
     {
-        Task<Customer> GetWithOdersAsync<Customer>(int id);
+        #region "  Methods  "
+
+        Task<Customer> GetWithOdersAsync(int id);
+
+        #endregion
     }
 }

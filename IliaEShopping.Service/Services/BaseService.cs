@@ -22,11 +22,11 @@ namespace IliaEShopping.Service.Services
 
         public abstract Task<TEntity> AddAsync<TInputModel>(TInputModel inputModel) where TInputModel : class;
 
-        public abstract Task DeleteAsync(int id);
+        public abstract Task<int> DeleteAsync(int id);
 
         public abstract Task<TEntity> GetAsync(int id);
 
-        public abstract Task<IEnumerable<TEntity>> ListAsync();
+        public abstract Task<List<TEntity>> ListAsync();
 
         public abstract Task<TEntity> UpdateAsync<TInputModel>(TInputModel inputModel) where TInputModel : class;
     }

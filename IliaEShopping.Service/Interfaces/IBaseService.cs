@@ -18,9 +18,9 @@ namespace IliaEShopping.Service.Interfaces
         Task<TEntity> AddAsync<TInputModel>(TInputModel inputModel)
             where TInputModel : class;
 
-        Task DeleteAsync(int id);
+        Task<int> DeleteAsync(int id);
 
-        Task<IEnumerable<TEntity>> ListAsync();
+        Task<List<TEntity>> ListAsync();
 
         Task<TEntity> GetAsync(int id);
 
