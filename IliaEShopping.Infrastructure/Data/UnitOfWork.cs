@@ -4,19 +4,29 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IliaEShopping.Infrastructure
+namespace IliaEShopping.Infrastructure.Data
 {
     /// <summary>
     /// Unit of Work
     /// </summary>
     public class UnitOfWork : IUnitOfWork
     {
+        #region "  Variables  "
+
+        private readonly EShoppingDataContext _context;
+
+        #endregion
+
         #region "  Constructors  "
 
         public UnitOfWork(
-            ICustomerRepository _customerRepository)
+            EShoppingDataContext context,
+            ICustomerRepository customerRepository,
+            IOrderRepository orderRepository)
         {
-            Customers = _customerRepository;
+            _context = context;
+            Customers = customerRepository;
+            Orders = orderRepository;
         }
 
         #endregion
@@ -24,9 +34,14 @@ namespace IliaEShopping.Infrastructure
         #region "  Repositories  "
 
         /// <summary>
-        /// Customer Repository
+        /// Customer repository
         /// </summary>
         public ICustomerRepository Customers { get; private set; }
+
+        /// <summary>
+        /// Order repository
+        /// </summary>
+        public IOrderRepository Orders { get; private set; }
 
         #endregion
 
@@ -39,7 +54,7 @@ namespace IliaEShopping.Infrastructure
         /// <exception cref="NotImplementedException"></exception>
         public Task<int> CommitAsync()
         {
-            throw new NotImplementedException();
+            return _context.SaveChangesAsync();
         }
 
         /// <summary>
@@ -49,7 +64,7 @@ namespace IliaEShopping.Infrastructure
         /// <exception cref="NotImplementedException"></exception>
         public int Commit()
         {
-            throw new NotImplementedException();
+            return _context.SaveChanges();
         }
 
         #endregion

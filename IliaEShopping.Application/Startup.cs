@@ -13,6 +13,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using IliaEShopping.Infrastructure.Data;
+using IliaEShopping.Infrastructure.Interfaces;
+using IliaEShopping.Infrastructure.Repositories;
 
 namespace IliaEShopping.Application
 {
@@ -40,7 +44,13 @@ namespace IliaEShopping.Application
                     opts.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
                 });
 
-            
+            services.AddDbContext<EShoppingDataContext>(options => options.UseMySql("", myOpts =>
+            {
+                myOpts.EnableRetryOnFailure();
+            }));
+
+            services.AddTransient<ICustomerRepository, CustomerRepository>();
+            services.AddTransient<IUnitOfWork, UnitOfWork>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
