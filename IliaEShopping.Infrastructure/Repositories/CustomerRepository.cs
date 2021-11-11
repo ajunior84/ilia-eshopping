@@ -34,6 +34,11 @@ namespace IliaEShopping.Infrastructure.Repositories
                 .FirstOrDefaultAsync();
         }
 
+        public Task<bool> ExistsAsync(int id)
+        {
+            return Context.Customer.AnyAsync(p => p.Id == id);
+        }
+
         #endregion
     }
 }

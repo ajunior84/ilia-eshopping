@@ -19,12 +19,9 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\IliaEShopping.Domain\IliaEShopping.Domain.csproj" />
+		<ProjectReference Include="..\IliaEShopping.Infrastructure.CrossCutting\IliaEShopping.Infrastructure.CrossCutting.csproj" />
 		<ProjectReference Include="..\IliaEShopping.Infrastructure\IliaEShopping.Infrastructure.csproj" />
 		<ProjectReference Include="..\IliaEShopping.Service\IliaEShopping.Service.csproj" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<Folder Include="Models\" />
 	</ItemGroup>
 
 

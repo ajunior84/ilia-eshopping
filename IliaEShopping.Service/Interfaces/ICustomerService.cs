@@ -11,6 +11,7 @@ namespace IliaEShopping.Service.Interfaces
         #region "  Methods  "
 
         Task<Customer> GetWithOdersAsync(int id);
+        Task<bool> ExistsAsync(int id);
 
         #endregion
     }

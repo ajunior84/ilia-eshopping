@@ -27,6 +27,11 @@ namespace IliaEShopping.Service.Services
         public override async Task<Customer> AddAsync<TInputModel>(TInputModel inputModel)
         {
             var customer = Mapper.Map<Customer>(inputModel);
+
+            Sanitize(ref customer);
+
+            customer.CreatedAt = DateTime.Now;
+
             UnitOfWork.Customers.Add(customer);
             await UnitOfWork.CommitAsync();
             return customer;
@@ -53,6 +58,9 @@ namespace IliaEShopping.Service.Services
         public override async Task<Customer> UpdateAsync<TInputModel>(TInputModel inputModel)
         {
             var customer = Mapper.Map<Customer>(inputModel);
+
+            Sanitize(ref customer);
+
             UnitOfWork.Customers.Update(customer);
             await UnitOfWork.CommitAsync();
             return customer;
@@ -64,7 +72,27 @@ namespace IliaEShopping.Service.Services
 
         public Task<Customer> GetWithOdersAsync(int id)
         {
-            throw new NotImplementedException();
+            return UnitOfWork.Customers.GetWithOdersAsync(id);
+        }
+
+        public Task<bool> ExistsAsync(int id)
+        {
+            return UnitOfWork.Customers.ExistsAsync(id);
+        }
+
+        #endregion
+
+        #region "  Private Methods  "
+
+        private void Sanitize(ref Customer customer)
+        {
+            if (customer == null)
+            {
+                return;
+            }
+
+            customer.Name = customer?.Name.Trim().ToUpper();
+            customer.Email = customer?.Email.Trim().ToLower();
         }
 
         #endregion

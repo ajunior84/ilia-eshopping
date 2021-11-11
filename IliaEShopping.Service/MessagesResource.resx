@@ -126,4 +126,10 @@
   <data name="CUSTOMER_NAME_REQUIRED" xml:space="preserve">
     <value>Please, enter the name.</value>
   </data>
+  <data name="CUSTOMER_NOT_FOUND" xml:space="preserve">
+    <value>Customer not found.</value>
+  </data>
+  <data name="ORDER_NOT_FOUND" xml:space="preserve">
+    <value>Order not found.</value>
+  </data>
 </root>

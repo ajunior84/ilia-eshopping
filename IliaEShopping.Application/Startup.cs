@@ -81,14 +81,17 @@ namespace IliaEShopping.Application
                     opts.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
                 });
 
+            // AutoMapper
             var config = new MapperConfiguration(cfg =>
             {
-
+                cfg.CreateMap<Models.Customer.CreateCustomerRequest, Domain.Entities.Customer>();
+                cfg.CreateMap<Models.Order.CreateOrderRequest, Domain.Entities.Order>();
             });
 
             IMapper mapper = config.CreateMapper();
             services.AddSingleton(mapper);
 
+            // Data Context
             services.AddDbContext<EShoppingDataContext>(options => options.UseMySql(Configuration.GetConnectionString("IliaEShopping"), myOpts =>
             {
                 myOpts.EnableRetryOnFailure();
