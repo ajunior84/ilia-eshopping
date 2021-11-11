@@ -19,6 +19,8 @@ using IliaEShopping.Infrastructure.Interfaces;
 using IliaEShopping.Infrastructure.Repositories;
 using IliaEShopping.Service.Interfaces;
 using IliaEShopping.Service.Services;
+using System.IO;
+using Microsoft.OpenApi.Models;
 
 namespace IliaEShopping.Application
 {
@@ -33,6 +35,38 @@ namespace IliaEShopping.Application
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddRouting(options => options.LowercaseUrls = true);
+            services.AddOptions();
+            services.AddResponseCaching();
+
+            // Add swagger documentation
+            services.AddSwaggerGen(swagger =>
+            {
+                swagger.EnableAnnotations(enableAnnotationsForInheritance: true, enableAnnotationsForPolymorphism: true);
+                swagger.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Title = "ília e-Shopping API",
+                    Version = "v1"
+                });
+
+                swagger.CustomSchemaIds(x => x.FullName);
+                swagger.DescribeAllParametersInCamelCase();
+
+                var XMLPath = AppDomain.CurrentDomain.BaseDirectory + "IliaEShopping.Application" + ".xml";
+
+                if (File.Exists(XMLPath))
+                {
+                    swagger.IncludeXmlComments(XMLPath);
+                }
+
+                string basePath = AppContext.BaseDirectory;
+
+                Directory.GetFiles(string.Format("{0}/", basePath), "*.xml").ToList().ForEach(file =>
+                {
+                    swagger.IncludeXmlComments(file, true);
+                });
+            });
+
             services.AddControllers()
                 .AddJsonOptions(opts =>
                 {
@@ -46,10 +80,10 @@ namespace IliaEShopping.Application
                     opts.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
                 });
 
-            services.AddDbContext<EShoppingDataContext>(options => options.UseMySql(Configuration.GetConnectionString("IliaEShopping"), myOpts =>
+            services.AddDbContext<DbContext, EShoppingDataContext>(options => options.UseMySql(Configuration.GetConnectionString("IliaEShopping"), myOpts =>
             {
                 myOpts.EnableRetryOnFailure();
-            }));
+            }), ServiceLifetime.Scoped);
 
             services.AddTransient<ICustomerRepository, CustomerRepository>();
             services.AddTransient<IUnitOfWork, UnitOfWork>();
@@ -64,10 +98,17 @@ namespace IliaEShopping.Application
             }
 
             app.UseHttpsRedirection();
-
             app.UseRouting();
-
             app.UseAuthorization();
+            app.UseWelcomePage("/");
+            app.UseWebSockets();
+            app.UseResponseCaching();
+
+            app.UseSwagger();
+            app.UseSwaggerUI(ui =>
+            {
+                ui.SwaggerEndpoint("v1/swagger.json", "ília e-Shopping API v1");
+            });
 
             app.UseEndpoints(endpoints =>
             {
