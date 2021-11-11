@@ -22,6 +22,8 @@ using IliaEShopping.Service.Services;
 using System.IO;
 using Microsoft.OpenApi.Models;
 using AutoMapper;
+using Hangfire;
+using Hangfire.MemoryStorage;
 
 namespace IliaEShopping.Application
 {
@@ -81,6 +83,12 @@ namespace IliaEShopping.Application
                     opts.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
                 });
 
+            // Hangfire Services
+            services.AddHangfire(config =>
+            {
+                config.UseMemoryStorage();
+            });
+
             // AutoMapper
             var config = new MapperConfiguration(cfg =>
             {
@@ -125,6 +133,9 @@ namespace IliaEShopping.Application
             {
                 ui.SwaggerEndpoint("v1/swagger.json", "ília e-Shopping API v1");
             });
+
+            app.UseHangfireDashboard();
+            app.UseHangfireServer();
 
             app.UseEndpoints(endpoints =>
             {

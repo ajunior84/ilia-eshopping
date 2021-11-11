@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
 using FluentValidation;
+using Hangfire;
 using IliaEShopping.Domain.Entities;
 using IliaEShopping.Domain.ObjectValues;
 using IliaEShopping.Infrastructure.CrossCutting.Exceptions;
+using IliaEShopping.Infrastructure.CrossCutting.Jobs;
 using IliaEShopping.Infrastructure.Interfaces;
 using IliaEShopping.Service.Interfaces;
 using IliaEShopping.Service.Validators;
@@ -67,6 +69,10 @@ namespace IliaEShopping.Service.Services
 
             UnitOfWork.Orders.Add(order);
             await UnitOfWork.CommitAsync();
+
+            // Send e-mail to customer async
+            BackgroundJob.Enqueue<SendMailJob>(p => p.AlertNewOrder(order.Id));
+
             return await GetAsync(order.Id);
         }
 
