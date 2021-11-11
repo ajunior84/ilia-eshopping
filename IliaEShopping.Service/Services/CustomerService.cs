@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
+using FluentValidation;
 using IliaEShopping.Domain.Entities;
 using IliaEShopping.Infrastructure.Interfaces;
 using IliaEShopping.Service.Interfaces;
+using IliaEShopping.Service.Validators;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -12,7 +14,7 @@ namespace IliaEShopping.Service.Services
     /// <summary>
     /// Customer Service
     /// </summary>
-    public class CustomerService : BaseService<Customer>, ICustomerService
+    public class CustomerService : BaseService<Customer, CustomerValidator>, ICustomerService
     {
         #region "  Constructors  "
 
@@ -31,6 +33,9 @@ namespace IliaEShopping.Service.Services
             Sanitize(ref customer);
 
             customer.CreatedAt = DateTime.Now;
+
+            // Validate
+            Validator.ValidateAndThrow(customer);
 
             UnitOfWork.Customers.Add(customer);
             await UnitOfWork.CommitAsync();
@@ -60,6 +65,9 @@ namespace IliaEShopping.Service.Services
             var customer = Mapper.Map<Customer>(inputModel);
 
             Sanitize(ref customer);
+
+            // Validate
+            Validator.ValidateAndThrow(customer);
 
             UnitOfWork.Customers.Update(customer);
             await UnitOfWork.CommitAsync();

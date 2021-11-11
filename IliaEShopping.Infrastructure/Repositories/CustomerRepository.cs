@@ -30,13 +30,10 @@ namespace IliaEShopping.Infrastructure.Repositories
         {
             return Context.Customer
                 .Include(p => p.Orders)
+                    .ThenInclude(o => o.OrderStatus)
+                    .ThenInclude(o => o.OrderStatusHistory)
                 .Where(p => p.Id == id)
                 .FirstOrDefaultAsync();
-        }
-
-        public Task<bool> ExistsAsync(int id)
-        {
-            return Context.Customer.AnyAsync(p => p.Id == id);
         }
 
         #endregion

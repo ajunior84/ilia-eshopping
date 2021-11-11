@@ -10,6 +10,7 @@ namespace IliaEShopping.Application.Controllers
     /// <summary>
     /// Order API
     /// </summary>
+    [Route("v1/order")]
     public class OrderController : BaseController
     {
         #region "  Variables  "

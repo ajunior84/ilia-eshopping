@@ -7,7 +7,7 @@ namespace IliaEShopping.Domain.Entities
     /// <summary>
     /// Order Status History
     /// </summary>
-    public class OrderStatusHistory : BaseEntity
+    public partial class OrderStatusHistory : BaseEntity
     {
         #region "  Properties  "
 

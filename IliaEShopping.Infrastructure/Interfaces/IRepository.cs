@@ -19,6 +19,7 @@ namespace IliaEShopping.Infrastructure.Interfaces
         Task<TEntity> GetAsync(int id);
         void Update(TEntity entity);
         void Delete(TEntity entity);
+        Task<bool> ExistsAsync(int id);
 
         #endregion
     }

@@ -7,7 +7,7 @@ namespace IliaEShopping.Domain.Entities
     /// <summary>
     /// Order Status
     /// </summary>
-    public class OrderStatus : BaseEntity
+    public partial class OrderStatus : BaseEntity
     {
         #region "  Constructors  "
 

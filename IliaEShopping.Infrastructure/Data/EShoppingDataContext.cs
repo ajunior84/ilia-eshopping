@@ -33,10 +33,10 @@ namespace IliaEShopping.Infrastructure.Data
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<Customer>(new CustomerMap().Configure);
-            modelBuilder.Entity<OrderStatus>(new OrderStatusMap().Configure);
-            modelBuilder.Entity<OrderStatusHistory>(new OrderStatusHistoryMap().Configure);
-            modelBuilder.Entity<Order>(new OrderMap().Configure);
+            modelBuilder.ApplyConfiguration(new CustomerMap());
+            modelBuilder.ApplyConfiguration(new OrderStatusMap());
+            modelBuilder.ApplyConfiguration(new OrderStatusHistoryMap());
+            modelBuilder.ApplyConfiguration(new OrderMap());
         }
     }
 }

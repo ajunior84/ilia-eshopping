@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
+using FluentValidation;
 using IliaEShopping.Domain.Entities;
 using IliaEShopping.Infrastructure.CrossCutting.Exceptions;
 using IliaEShopping.Infrastructure.Interfaces;
 using IliaEShopping.Service.Interfaces;
+using IliaEShopping.Service.Validators;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -13,7 +15,7 @@ namespace IliaEShopping.Service.Services
     /// <summary>
     /// Order Service
     /// </summary>
-    public class OrderService : BaseService<Order>, IOrderService
+    public class OrderService : BaseService<Order, OrderValidator>, IOrderService
     {
         #region "  Variables  "
 
@@ -43,7 +45,7 @@ namespace IliaEShopping.Service.Services
 
             if (!customerExists)
             {
-                throw new ValidationException(MessagesResource.CUSTOMER_NOT_FOUND, new
+                throw new Infrastructure.CrossCutting.Exceptions.ValidationException(MessagesResource.CUSTOMER_NOT_FOUND, new
                 {
                     order.CustomerId
                 });
@@ -57,6 +59,9 @@ namespace IliaEShopping.Service.Services
                 CreatedAt = DateTime.Now,
                 OrderStatusId = 1
             });
+
+            // Validate
+            Validator.ValidateAndThrow(order);
 
             UnitOfWork.Orders.Add(order);
             await UnitOfWork.CommitAsync();
@@ -102,7 +107,7 @@ namespace IliaEShopping.Service.Services
 
             if (order == null)
             {
-                throw new ValidationException(MessagesResource.ORDER_NOT_FOUND, new
+                throw new Infrastructure.CrossCutting.Exceptions.ValidationException(MessagesResource.ORDER_NOT_FOUND, new
                 {
                     id
                 });

@@ -7,7 +7,7 @@ namespace IliaEShopping.Domain.Entities
     /// <summary>
     /// Order
     /// </summary>
-    public class Order : BaseEntity
+    public partial class Order : BaseEntity
     {
         public Order()
         {

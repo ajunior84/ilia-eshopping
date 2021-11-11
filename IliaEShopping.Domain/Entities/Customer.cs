@@ -7,7 +7,7 @@ namespace IliaEShopping.Domain.Entities
     /// <summary>
     /// Customer
     /// </summary>
-    public class Customer : BaseEntity
+    public partial class Customer : BaseEntity
     {
         #region "  Constructors  "
 

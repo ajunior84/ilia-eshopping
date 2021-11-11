@@ -64,6 +64,11 @@ namespace IliaEShopping.Infrastructure
             _dbSet.Update(entity);
         }
 
+        public virtual Task<bool> ExistsAsync(int id)
+        {
+            return _dbSet.AnyAsync(p => p.Id == id);
+        }
+
         #endregion
     }
 }

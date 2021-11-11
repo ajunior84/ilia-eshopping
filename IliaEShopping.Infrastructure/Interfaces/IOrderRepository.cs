@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using IliaEShopping.Domain.Entities;
 
 namespace IliaEShopping.Infrastructure.Interfaces
 {
-    public interface IOrderRepository : IRepository<Domain.Entities.Order>
+    public interface IOrderRepository : IRepository<Order>
     {
-
     }
 }

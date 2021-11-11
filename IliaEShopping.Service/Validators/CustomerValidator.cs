@@ -16,6 +16,7 @@ namespace IliaEShopping.Service.Validators
         {
             // Name validation
             RuleFor(p => p.Name)
+                .MaximumLength(100)
                 .NotEmpty()
                     .WithMessage(MessagesResource.CUSTOMER_NAME_REQUIRED)
                 .NotNull()
@@ -23,6 +24,7 @@ namespace IliaEShopping.Service.Validators
 
             // E-mail validation
             RuleFor(p => p.Email)
+                .MaximumLength(50)
                 .NotEmpty()
                     .WithMessage(MessagesResource.CUSTOMER_EMAIL_REQUIRED)
                 .NotNull()

@@ -13,6 +13,7 @@ namespace IliaEShopping.Application.Controllers
     /// <summary>
     /// Customer API
     /// </summary>
+    [Route("v1/customer")]
     public class CustomerController : BaseController
     {
         #region "  Variables  "
